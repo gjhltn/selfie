@@ -1,0 +1,24 @@
+
+.DS_Store
+
+# dependencies
+/selfie-client/node_modules
+/selfie-client/.pnp
+/selfie-client.pnp.js
+
+# testing
+/selfie-client/coverage
+
+# production
+/selfie-client/build
+
+# misc
+/selfie-client/.DS_Store
+/selfie-client/.env.local
+/selfie-client/.env.development.local
+/selfie-client/.env.test.local
+/selfie-client/.env.production.local
+
+/selfie-client/npm-debug.log*
+/selfie-client/yarn-debug.log*
+/selfie-client/yarn-error.log*
