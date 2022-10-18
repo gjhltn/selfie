@@ -38,12 +38,7 @@ const  = async () => {
     }
 } */
 
-export const Selfie = ()=> {
-
-    
-    return(
+export const Selfie = ()=> 
     <div>
         <button onClick={()=>saveSelfie()}>Save</button>
-</div>
-    )
-}
+	</div>
