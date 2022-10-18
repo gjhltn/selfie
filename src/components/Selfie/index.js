@@ -1,5 +1,5 @@
 import React from 'react';
-import { Octokit, App } from "octokit";
+import { Octokit } from "octokit";
 
 const octokit = new Octokit({ });
 

@@ -1,5 +1,3 @@
-
-import './App.css';
 import {Selfie} from './components/Selfie'
 
 function App() {
