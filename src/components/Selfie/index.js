@@ -3,17 +3,17 @@ import { Octokit } from '@octokit/rest'
 import { Base64 } from 'js-base64'
 import styled from 'styled-components'
 import { CirclePicker } from 'react-color'
-import CONFIG from '../../config.json';
+import CONFIG from '../../config.json'
 
 const OWNER = 'gswirrl'
 const REPO = 'selfie'
 const CONFIG_FILE = 'src/config.json'
 
-const Note= styled.div`
-position: absolute;
-top: 1rem;
-left: 1rem;
-font-size: 14px;
+const Note = styled.div`
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+	font-size: 14px;
 `
 
 const Button = styled.button`
@@ -41,7 +41,9 @@ const Wrapper = styled.div`
 	padding: 2rem 3rem;
 	background: #000;
 	color: #fff;
-	box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+		rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+		rgba(0, 0, 0, 0.09) 0px 32px 16px;
 
 	input {
 		font-size: 1.4rem;
@@ -89,11 +91,11 @@ const saveSelfie = async ({ token, data }) => {
 				content: contentEncoded,
 				committer: {
 					name: `Selfie Bot`,
-					email: "guy@swirrl.com" // 422 without this
+					email: 'guy@swirrl.com' // 422 without this
 				},
 				author: {
 					name: 'Selfie Bot',
-					email: "guy@swirrl.com" // 422 without this
+					email: 'guy@swirrl.com' // 422 without this
 				}
 			})
 			console.log(data)
@@ -119,10 +121,11 @@ export const Selfie = () => {
 
 	return (
 		<All colour={selectedColour}>
-			<Note>{
-				selectedColour === CONFIG.backgroundColour ? 
-				"background colour was set at: " + CONFIG.timeStamp : " "
-			}</Note>
+			<Note>
+				{selectedColour === CONFIG.backgroundColour
+					? 'background colour was set at: ' + CONFIG.timeStamp
+					: ' '}
+			</Note>
 			<Wrapper>
 				<Label colour={selectedColour}>Configure</Label>
 				<Spacer />
