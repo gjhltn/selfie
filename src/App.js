@@ -1,12 +1,5 @@
-import {Selfie} from './components/Selfie'
+import { Selfie } from './components/Selfie'
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Selfie</h1>
-      <Selfie />
-    </div>
-  );
-}
+const App = () => <Selfie />
 
-export default App;
+export default App

@@ -1,82 +1,147 @@
-import React, {useState} from 'react';
-import { Octokit } from "@octokit/rest"
-import { Base64 }from "js-base64"
-import styled from "styled-components";
+import React, { useState } from 'react'
+import { Octokit } from '@octokit/rest'
+import { Base64 } from 'js-base64'
+import styled from 'styled-components'
+import { CirclePicker } from 'react-color'
 
-const OWNER = "gswirrl"
-const REPO = "selfie"
-    const PATH  = "config.md"
+const OWNER = 'gswirrl'
+const REPO = 'selfie'
+const CONFIG_FILE = 'config.json'
 
+const backgroundColour = '#00bcd4'
 
-
-const Wrapper = styled.div`
-  margin:20rem;
-  padding: 3rem;
-  border: 5px solid black;
+const Button = styled.button`
+	background: ${props => props.colour};
+	color: #000;
+	font-size: 2rem;
+	font-weight: bold;
+	border: 0;
+	border-radius: 1rem;
 `
 
-const saveSelfie = async (token) => {
+const Label = styled.div`
+	color: ${props => props.colour};
+	font-size: 2rem;
+	font-weight: bold;
+`
 
-   
+const Spacer = styled.div`
+	height: 1rem;
+`
 
-var today = new Date();
-var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-var dateTime = date+' '+time;
+const Wrapper = styled.div`
+	width: 50vw;
+	flex: 0;
+	padding: 2rem 3rem;
+	background: #000;
+	color: #fff;
 
+	input {
+		font-size: 1.4rem;
+		border-radius: 0;
+		padding: 0.4rem;
+	}
+`
 
-    try {
+const All = styled.div`
+	background: ${props => props.colour};
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`
 
-      const octokit = new Octokit({
-        auth: token,
-        })
+const saveSelfie = async ({ token, data }) => {
+	if (token) {
+		const today = new Date()
+		const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+		const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+		const timeStamp = date + ' ' + time
+		const payload = Object.assign({ timeStamp: timeStamp }, data)
+		const payloadJSON = JSON.stringify(payload)
 
-        const { data: { sha } } = await octokit.request('GET /repos/{owner}/{repo}/contents/{file_path}', {
-          owner: OWNER,
-          repo: REPO,
-          file_path:PATH
-        });
+		try {
+			const octokit = new Octokit({ auth: token })
+			const {
+				data: { sha }
+			} = await octokit.request('GET /repos/{owner}/{repo}/contents/{file_path}', {
+				owner: OWNER,
+				repo: REPO,
+				file_path: CONFIG_FILE
+			})
+			// todo if this 404s then you havent uploaded your config file
+			const contentEncoded = Base64.encode(payloadJSON)
+			const { data } = await octokit.repos.createOrUpdateFileContents({
+				owner: OWNER,
+				repo: REPO,
+				path: CONFIG_FILE,
+				sha: sha,
+				message: 'Selfie saved user config',
+				content: contentEncoded,
+				committer: {
+					name: `Selfie Bot`
+					// email: "guy@swirrl.com",
+				},
+				author: {
+					name: 'Selfie Bot'
+					//email: "guy@swirrl.com",
+				}
+			})
+			console.log(data)
+			alert(data ? 'successs' : 'error')
+		} catch (error) {
+			console.log(
+				`Error! Status: ${error.status}. Rate limit remaining: ${error.headers['x-ratelimit-remaining']}. Message: ${error.response.data.message}`
+			)
+			alert('error ' + error.status)
+		}
+		return
+	}
+	alert('Please provide the password')
+}
 
-      const content = "hello world " + dateTime
-   const contentEncoded = Base64.encode(content);
-   const { data } = await octokit.repos.createOrUpdateFileContents({
-  
-     owner: OWNER,
-     repo: REPO,
-           path: PATH,
-           sha: sha,
-      message: "feat: Added programatically",
-     content: contentEncoded,
-      committer: {
-        name: `Octokit Bot`,
-        email: "guy@swirrl.com",
-     },
-      author: {
-       name: "Octokit Bot",
-       email: "guy@swirrl.com",
-      },
-   });
+export const Selfie = () => {
+	const [token, setToken] = useState('')
+	const [selectedColour, setBackgroundColour] = useState(backgroundColour)
 
-    console.log(data);
-    alert(data ? "successs" : "error")
+	const handleChangeComplete = c => {
+		setBackgroundColour(c.hex)
+	}
 
-
-      } catch (error) {
-        console.log(`Error! Status: ${error.status}. Rate limit remaining: ${error.headers["x-ratelimit-remaining"]}. Message: ${error.response.data.message}`)
-        alert( "error " + error.status)
-    
-  }}
-
-export const Selfie = ()=> {
-  const [token,setToken] = useState("")
-  return(
-    <Wrapper>
-      <input type='password'
-       name='password' 
-       id='password'
-       value={token}
-       onChange={(e)=>setToken(e.target.value)}
- /><br/>
-        <button onClick={()=>saveSelfie(token)}>Save</button>
-	</Wrapper>)
+	return (
+		<All colour={selectedColour}>
+			<Wrapper>
+				<Label colour={selectedColour}>Configure</Label>
+				<Spacer />
+				<CirclePicker color={selectedColour} onChangeComplete={handleChangeComplete} />
+				<Spacer />
+				<Spacer />
+				<Label colour={selectedColour}>Password</Label>
+				<input
+					type='password'
+					name='password'
+					id='password'
+					value={token}
+					onChange={e => setToken(e.target.value)}
+				/>
+				<Spacer />
+				<Spacer />
+				<Button
+					colour={selectedColour}
+					onClick={() =>
+						saveSelfie({
+							token: token,
+							data: {
+								selectedColour: selectedColour
+							}
+						})
+					}
+				>
+					Save
+				</Button>
+			</Wrapper>
+		</All>
+	)
 }
