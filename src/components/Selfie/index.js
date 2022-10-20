@@ -148,7 +148,7 @@ export const Selfie = () => {
 						saveSelfie({
 							token: token,
 							data: {
-								selectedColour: selectedColour
+								backgroundColour: selectedColour
 							}
 						})
 					}
