@@ -3,6 +3,7 @@ import { Octokit } from '@octokit/rest'
 import { Base64 } from 'js-base64'
 import styled from 'styled-components'
 import { CirclePicker } from 'react-color'
+import toast from 'react-hot-toast'
 import CONFIG from '../../config.json'
 
 const OWNER = 'gswirrl'
@@ -98,17 +99,20 @@ const saveSelfie = async ({ token, data }) => {
 					email: 'guy@swirrl.com' // 422 without this
 				}
 			})
-			console.log(data)
-			alert(data ? 'successs' : 'error')
+			if (data) {
+				toast.success('Successfully toasted!')
+			} else {
+				toast.error("Sorry this didn't work.")
+			}
 		} catch (error) {
 			console.log(
 				`Error! Status: ${error.status}. Rate limit remaining: ${error.headers['x-ratelimit-remaining']}. Message: ${error.response.data.message}`
 			)
-			alert('error ' + error.status)
+			toast.error('Something went wrong: ' + error.status)
 		}
 		return
 	}
-	alert('Please provide the password')
+	toast.error('Password required.')
 }
 
 export const Selfie = () => {
