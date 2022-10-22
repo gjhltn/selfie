@@ -100,7 +100,7 @@ const saveSelfie = async ({ token, data }) => {
 				}
 			})
 			if (data) {
-				toast.success('Successfully toasted!')
+				toast.success('Successfully saved!')
 			} else {
 				toast.error("Sorry this didn't work.")
 			}
