@@ -29,7 +29,8 @@ jobs:
         with:
           files: '["**/*.js"]'
         env:
-          REPO: foo
+          REPO: ${{ github.event.repository.name }}
+          EMAIL: ${{ github.event.commits.author.email }}
           CDN: https://somecdn.com/...
           CALLBACK: some_value
 
