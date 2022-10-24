@@ -37,7 +37,7 @@ jobs:
         with:
           files: '["**/*.js"]'
         env:
-          REPO: ${{ github.event.repository.name }}
+          REPO: "foo"
 
       - name: Build project
         run: yarn build
