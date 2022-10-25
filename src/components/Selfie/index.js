@@ -6,8 +6,18 @@ import { CirclePicker } from 'react-color'
 import toast from 'react-hot-toast'
 import CONFIG from '../../config.json'
 
-const OWNER = 'gswirrl'
-const REPO = 'selfie'
+// these are interpolated by a githun action before use
+const OWNER =  'gswirrl'
+const REPO =  'selfie'
+const EMAIL=  'guy@swirrl.com'
+
+/*
+const OWNER = || 'gswirrl'
+const REPO = || 'selfie'
+const EMAIL= || 'guy@swirrl.com'
+*/
+
+const USER = || `Selfie Bot`
 const CONFIG_FILE = 'src/config.json'
 
 const Note = styled.div`
@@ -91,12 +101,12 @@ const saveSelfie = async ({ token, data }) => {
 				message: 'Selfie saved user config',
 				content: contentEncoded,
 				committer: {
-					name: `Selfie Bot`,
-					email: 'guy@swirrl.com' // 422 without this
+					name: USERNAME,
+					email: EMAIL // 422 without this
 				},
 				author: {
-					name: 'Selfie Bot',
-					email: 'guy@swirrl.com' // 422 without this
+					name: USERNAME,
+					email: EMAIL // 422 without this
 				}
 			})
 			if (data) {

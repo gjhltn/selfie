@@ -29,11 +29,9 @@ jobs:
         with:
           files: '["**/*.js"]'
         env:
+          OWNER: ${{ github.actor }}
           REPO: ${{ github.event.repository.name }}
-          EMAIL: ${{ github.event.commits.author.email }}
-          CDN: https://somecdn.com/...
-          CALLBACK: some_value
-
+          EMAIL: ${{ github.event.commits[0].author.email }}
 
       - name: Build project
         run: yarn build

@@ -19,6 +19,5 @@ export const Root = () => (
 		<p>The regular website goes here.</p>
 		<p>{  " #{REPO}# " } </p>
 		<p>{  " #{EMAIL}# " } </p>
-		{ " #{CDN}# and #{CALLBACK}# "}
 	</All>
 )
