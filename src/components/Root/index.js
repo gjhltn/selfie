@@ -17,7 +17,10 @@ export const Root = () => (
 	<All colour={CONFIG.backgroundColour}>
 		<h1>Hello world</h1>
 		<p>The regular website goes here.</p>
-		<p>{' #{REPO}# '} </p>
-		<p>{' #{EMAIL}# '} </p>
+		{/*}
+			<p>{ " #{OWNER}# " } </p>
+		    <p>{  " #{REPO}# " } </p>
+		    <p>{  " #{EMAIL}# " } </p>
+*/}
 	</All>
 )
