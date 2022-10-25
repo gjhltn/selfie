@@ -7,9 +7,9 @@ import toast from 'react-hot-toast'
 import CONFIG from '../../config.json'
 
 // these plaeholders are replaced on the fly into the source with github credentials by a githun action before compilation
-const OWNER = "#{OWNER}#"
-const REPO = "#{REPO}#"
-const EMAIL = "#{EMAIL}#"
+const OWNER = '#{OWNER}#'
+const REPO = '#{REPO}#'
+const EMAIL = '#{EMAIL}#'
 
 /*
 const OWNER = || 'gswirrl'
