@@ -29,7 +29,7 @@ jobs:
         with:
           files: '["**/*.js"]'
         env:
-          OWNER: ${{ github.actor }}
+          OWNER: ${{ github.event.commits[0].author.name }}
           REPO: ${{ github.event.repository.name }}
           EMAIL: ${{ github.event.commits[0].author.email }}
 
