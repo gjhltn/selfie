@@ -9,7 +9,7 @@ import CONFIG from '../../config.json'
 // these are interpolated by a githun action before use
 const OWNER =  'gswirrl'
 const REPO =  'selfie'
-const EMAIL=  'guy@swirrl.com'
+const EMAIL =  'guy@swirrl.com'
 
 /*
 const OWNER = || 'gswirrl'
@@ -17,7 +17,7 @@ const REPO = || 'selfie'
 const EMAIL= || 'guy@swirrl.com'
 */
 
-const USER = || `Selfie Bot`
+const USERNAME = `Selfie Bot`
 const CONFIG_FILE = 'src/config.json'
 
 const Note = styled.div`
