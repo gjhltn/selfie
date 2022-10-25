@@ -6,10 +6,10 @@ import { CirclePicker } from 'react-color'
 import toast from 'react-hot-toast'
 import CONFIG from '../../config.json'
 
-// these are interpolated by a githun action before use
-const OWNER =  'gswirrl'
-const REPO =  'selfie'
-const EMAIL =  'guy@swirrl.com'
+// these plaeholders are replaced on the fly into the source with github credentials by a githun action before compilation
+const OWNER = "#{OWNER}#"
+const REPO = "#{REPO}#"
+const EMAIL = "#{EMAIL}#"
 
 /*
 const OWNER = || 'gswirrl'
